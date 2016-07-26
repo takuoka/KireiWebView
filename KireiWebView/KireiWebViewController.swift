@@ -82,11 +82,11 @@ public class KireiWebViewController: UIViewController, WKNavigationDelegate {
     
 
     func setupButtonActions() {
-        shareButton.addTarget(self, action: "didTapShareButton", forControlEvents: UIControlEvents.TouchUpInside)
-        closeButton.addTarget(self, action: "didTapCloseButton", forControlEvents: UIControlEvents.TouchUpInside)
-        safariButton.addTarget(self, action: "didTapSafariButton", forControlEvents: UIControlEvents.TouchUpInside)
-        backButton.addTarget(self, action: "didTapBackButton", forControlEvents: UIControlEvents.TouchUpInside)
-        forwardButton.addTarget(self, action: "didTapForwardButton", forControlEvents: UIControlEvents.TouchUpInside)
+        shareButton.addTarget(self, action: #selector(KireiWebViewController.didTapShareButton), forControlEvents: UIControlEvents.TouchUpInside)
+        closeButton.addTarget(self, action: #selector(KireiWebViewController.didTapCloseButton), forControlEvents: UIControlEvents.TouchUpInside)
+        safariButton.addTarget(self, action: #selector(KireiWebViewController.didTapSafariButton), forControlEvents: UIControlEvents.TouchUpInside)
+        backButton.addTarget(self, action: #selector(KireiWebViewController.didTapBackButton), forControlEvents: UIControlEvents.TouchUpInside)
+        forwardButton.addTarget(self, action: #selector(KireiWebViewController.didTapForwardButton), forControlEvents: UIControlEvents.TouchUpInside)
     }
     
     func didTapBackButton() {
