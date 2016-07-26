@@ -143,7 +143,6 @@ public class KireiWebViewController: UIViewController, WKNavigationDelegate {
         } else if keyPath == "loading" {
             let loading = self.webView.loading
             UIApplication.sharedApplication().networkActivityIndicatorVisible = loading
-            self.progressView.hidden = loading
             if !loading {
                 self.progressView.progress = 0
             }
