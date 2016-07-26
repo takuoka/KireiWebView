@@ -29,7 +29,7 @@ class ViewController: UIViewController {
     }
     
     func didTapButton() {
-        let url = "http://twitter.com"
+        let url = "http://raw.senmanga.com/release"
         let kireiWebView = KireiWebViewController(url: url)
         //        kireiWebView.showFooter = false
         //        kireiWebView.enableOpenInSafari = true

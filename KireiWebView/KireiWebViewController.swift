@@ -62,10 +62,43 @@ public class KireiWebViewController: UIViewController {
         super.viewWillDisappear(animated)
         removeOvserverForProgressBar()
     }
+    
+    let blackList: [String] = [
+        "addthis.com"
+    ]
+    
+    let whiteList: [String] = [
+        "raw.senmanga.com"
+    ]
 }
 
 extension KireiWebViewController: WKNavigationDelegate {
 
+    public func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
+        guard let url = navigationAction.request.URL else {
+            decisionHandler(.Allow)
+            return
+        }
+        let urlStr = url.absoluteString
+        for black in blackList {
+            if urlStr.containsString(black) {
+                print("❌ \(url.absoluteString)")
+                decisionHandler(.Cancel)
+                return
+            }
+        }
+        for white in whiteList {
+            if urlStr.containsString(white) {
+                print("👌 \(url.absoluteString)")
+                decisionHandler(.Allow)
+                return
+            }
+        }
+        print("❌ \(url.absoluteString)")
+        decisionHandler(.Cancel)
+        return
+    }
+    
     public func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         titleLabel.text = self.webview.URL?.absoluteString
     }
@@ -145,7 +178,7 @@ extension KireiWebViewController {
         } else if keyPath == "loading" {
             let loading = self.webview.loading
             UIApplication.sharedApplication().networkActivityIndicatorVisible = loading
-            self.progressView.hidden = loading
+//            self.progressView.hidden = loading
             if !loading {
                 self.progressView.progress = 0
             }
