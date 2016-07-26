@@ -122,7 +122,7 @@ public class KireiWebViewController: UIViewController, WKNavigationDelegate {
     }
     
     
-    // MARK: プログレスバー用の監視
+    // MARK: observe progress bar
     
     func startObserveForProgressBar() {
         self.webView.addObserver(self, forKeyPath: "loading", options: .New, context: nil)
