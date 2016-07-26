@@ -10,17 +10,17 @@ import UIKit
 import WebKit
 import SnapKit
 
-public class KireiWebViewController: UIViewController, WKNavigationDelegate {
+public class KireiWebViewController: UIViewController {
     
     public var shareButtonAction: ((url:NSURL?, title:String?)->())? = nil
     public var enableOpenInSafari = false
     public var openInSafariText = "Open in Safari"
     public var enablePcUserAgent = false
     public var showFooter = true
-    
+
     private let initialURL:String
-    
-    var webview: WKWebView!
+
+    var webview = WKWebView()
     let progressView = UIProgressView()
     let shareButton = UIButton()
     let closeButton = UIButton()
@@ -28,9 +28,6 @@ public class KireiWebViewController: UIViewController, WKNavigationDelegate {
     let titleLabel = UILabel()
     let backButton = UIButton()
     let forwardButton = UIButton()
-
-    
-    
     
     public init(url:String){
         initialURL = url
@@ -43,17 +40,17 @@ public class KireiWebViewController: UIViewController, WKNavigationDelegate {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if enablePcUserAgent == true {
             changeUserAgentAsPC()
         }
 
-        webview = WKWebView()
         webview.navigationDelegate = self
-        
+
         layout()
+
         setupButtonActions()
-    
+
         if let url = NSURL(string: initialURL){
             webview.loadRequest(NSURLRequest(URL: url))
         }
@@ -65,7 +62,10 @@ public class KireiWebViewController: UIViewController, WKNavigationDelegate {
         super.viewWillDisappear(animated)
         removeOvserverForProgressBar()
     }
-    
+}
+
+extension KireiWebViewController: WKNavigationDelegate {
+
     public func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         titleLabel.text = self.webview.URL?.absoluteString
     }
@@ -87,10 +87,11 @@ public class KireiWebViewController: UIViewController, WKNavigationDelegate {
             forwardButton.enabled = false
         }
     }
-    
-    
-    
+}
 
+// MARK: tap events
+extension KireiWebViewController {
+    
     func setupButtonActions() {
         shareButton.addTarget(self, action: #selector(KireiWebViewController.didTapShareButton), forControlEvents: UIControlEvents.TouchUpInside)
         closeButton.addTarget(self, action: #selector(KireiWebViewController.didTapCloseButton), forControlEvents: UIControlEvents.TouchUpInside)
@@ -123,9 +124,10 @@ public class KireiWebViewController: UIViewController, WKNavigationDelegate {
             openActivityView(nil)
         }
     }
-    
-    
-    // MARK: observe progress bar
+}
+
+// MARK: observe progress bar
+extension KireiWebViewController {
     
     func startObserveForProgressBar() {
         self.webview.addObserver(self, forKeyPath: "loading", options: .New, context: nil)
@@ -150,4 +152,3 @@ public class KireiWebViewController: UIViewController, WKNavigationDelegate {
         }
     }
 }
-
