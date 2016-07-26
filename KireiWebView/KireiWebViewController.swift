@@ -21,6 +21,7 @@ public class KireiWebViewController: UIViewController, WKNavigationDelegate {
     private let initialURL:String
     
     var webView: WKWebView!
+    let progressView = UIProgressView()
     let shareButton = UIButton()
     let closeButton = UIButton()
     let safariButton = UIButton()
@@ -56,9 +57,18 @@ public class KireiWebViewController: UIViewController, WKNavigationDelegate {
         if let url = NSURL(string: initialURL){
             webView.loadRequest(NSURLRequest(URL: url))
         }
+        
+        startObserveForProgressBar()
     }
     
+    public override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        removeOvserverForProgressBar()
+    }
     
+    public func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        titleLabel.text = self.webView.URL?.absoluteString
+    }
     
     public func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
         titleLabel.text = webView.title
@@ -111,6 +121,32 @@ public class KireiWebViewController: UIViewController, WKNavigationDelegate {
         }
         else {
             openActivityView(nil)
+        }
+    }
+    
+    
+    // MARK: observe progress bar
+    
+    func startObserveForProgressBar() {
+        self.webView.addObserver(self, forKeyPath: "loading", options: .New, context: nil)
+        self.webView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
+    }
+    
+    func removeOvserverForProgressBar() {
+        self.webView.removeObserver(self, forKeyPath: "estimatedProgress")
+        self.webView.removeObserver(self, forKeyPath: "loading")
+    }
+    
+    override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        if keyPath == "estimatedProgress" {
+            self.progressView.setProgress(Float(self.webView.estimatedProgress), animated: true)
+        } else if keyPath == "loading" {
+            let loading = self.webView.loading
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = loading
+            self.progressView.hidden = loading
+            if !loading {
+                self.progressView.progress = 0
+            }
         }
     }
 }

@@ -16,6 +16,9 @@ extension KireiWebViewController {
         let header = UIView()
         let footer = UIView()
 
+        progressView.progressViewStyle = .Bar
+        progressView.alpha = 0.5
+
         header.backgroundColor = UIColor(white: 248/255, alpha: 1)
         footer.backgroundColor = UIColor(white: 248/255, alpha: 1)
         
@@ -28,6 +31,7 @@ extension KireiWebViewController {
         
         self.view.addSubview(webView)
         self.view.addSubview(header)
+        self.view.addSubview(progressView)
         self.view.addSubview(footer)
         
         header.snp_makeConstraints { make in
@@ -53,6 +57,12 @@ extension KireiWebViewController {
             make.top.equalTo(header.snp_bottom)
             make.bottom.equalTo(footer.snp_top)
             make.right.left.equalTo(self.view)
+        }
+        
+        progressView.snp_makeConstraints { make in
+            make.top.equalTo(header.snp_bottom)
+            make.right.left.equalTo(self.view)
+            make.height.equalTo(4)
         }
         
         layoutHeader(header)
