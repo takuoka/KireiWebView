@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		404B3D961D47A47C00340BAC /* KireiWebView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B25D181BB550BE0055F16D /* KireiWebView.framework */; };
+		404B3D971D47A47C00340BAC /* KireiWebView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0B25D181BB550BE0055F16D /* KireiWebView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B0B25D1C1BB550BE0055F16D /* KireiWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = B0B25D1B1BB550BE0055F16D /* KireiWebView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B0B25D231BB550BE0055F16D /* KireiWebView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B25D181BB550BE0055F16D /* KireiWebView.framework */; settings = {ASSET_TAGS = (); }; };
+		B0B25D231BB550BE0055F16D /* KireiWebView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B25D181BB550BE0055F16D /* KireiWebView.framework */; };
 		B0B25D281BB550BE0055F16D /* KireiWebViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B25D271BB550BE0055F16D /* KireiWebViewTests.swift */; };
-		B0B25D361BB550F10055F16D /* KireiWebView.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0B25D321BB550F10055F16D /* KireiWebView.xcassets */; settings = {ASSET_TAGS = (); }; };
-		B0B25D371BB550F10055F16D /* KireiWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B25D331BB550F10055F16D /* KireiWebViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		B0B25D381BB550F10055F16D /* KireiWebViewController+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B25D341BB550F10055F16D /* KireiWebViewController+Design.swift */; settings = {ASSET_TAGS = (); }; };
-		B0B25D391BB550F10055F16D /* KireiWebViewController+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B25D351BB550F10055F16D /* KireiWebViewController+Util.swift */; settings = {ASSET_TAGS = (); }; };
+		B0B25D361BB550F10055F16D /* KireiWebView.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0B25D321BB550F10055F16D /* KireiWebView.xcassets */; };
+		B0B25D371BB550F10055F16D /* KireiWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B25D331BB550F10055F16D /* KireiWebViewController.swift */; };
+		B0B25D381BB550F10055F16D /* KireiWebViewController+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B25D341BB550F10055F16D /* KireiWebViewController+Design.swift */; };
+		B0B25D391BB550F10055F16D /* KireiWebViewController+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B25D351BB550F10055F16D /* KireiWebViewController+Util.swift */; };
 		B0B25D411BB551020055F16D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B25D401BB551020055F16D /* AppDelegate.swift */; };
 		B0B25D431BB551020055F16D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B25D421BB551020055F16D /* ViewController.swift */; };
 		B0B25D461BB551020055F16D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0B25D441BB551020055F16D /* Main.storyboard */; };
@@ -24,11 +26,16 @@
 		B0B25D721BB5518A0055F16D /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B25D6C1BB551680055F16D /* SnapKit.framework */; };
 		B0B25D741BB551BF0055F16D /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B25D731BB551BF0055F16D /* SnapKit.framework */; };
 		B0B25D751BB551BF0055F16D /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0B25D731BB551BF0055F16D /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B0B25D781BB552AD0055F16D /* KireiWebView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B25D771BB552AD0055F16D /* KireiWebView.framework */; };
-		B0B25D791BB552AD0055F16D /* KireiWebView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0B25D771BB552AD0055F16D /* KireiWebView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		404B3D981D47A47C00340BAC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B0B25D0F1BB550BE0055F16D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B0B25D171BB550BE0055F16D;
+			remoteInfo = KireiWebView;
+		};
 		B0B25D241BB550BE0055F16D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B0B25D0F1BB550BE0055F16D /* Project object */;
@@ -60,7 +67,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				B0B25D751BB551BF0055F16D /* SnapKit.framework in Embed Frameworks */,
-				B0B25D791BB552AD0055F16D /* KireiWebView.framework in Embed Frameworks */,
+				404B3D971D47A47C00340BAC /* KireiWebView.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -93,7 +100,6 @@
 		B0B25D621BB551020055F16D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0B25D6C1BB551680055F16D /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		B0B25D731BB551BF0055F16D /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
-		B0B25D771BB552AD0055F16D /* KireiWebView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KireiWebView.framework; path = Carthage/Build/iOS/KireiWebView.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,7 +124,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0B25D741BB551BF0055F16D /* SnapKit.framework in Frameworks */,
-				B0B25D781BB552AD0055F16D /* KireiWebView.framework in Frameworks */,
+				404B3D961D47A47C00340BAC /* KireiWebView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,7 +148,6 @@
 		B0B25D0E1BB550BE0055F16D = {
 			isa = PBXGroup;
 			children = (
-				B0B25D771BB552AD0055F16D /* KireiWebView.framework */,
 				B0B25D731BB551BF0055F16D /* SnapKit.framework */,
 				B0B25D6C1BB551680055F16D /* SnapKit.framework */,
 				B0B25D1A1BB550BE0055F16D /* KireiWebView */,
@@ -281,6 +286,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				404B3D991D47A47C00340BAC /* PBXTargetDependency */,
 			);
 			name = Sample;
 			productName = Sample;
@@ -463,6 +469,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		404B3D991D47A47C00340BAC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B0B25D171BB550BE0055F16D /* KireiWebView */;
+			targetProxy = 404B3D981D47A47C00340BAC /* PBXContainerItemProxy */;
+		};
 		B0B25D251BB550BE0055F16D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B0B25D171BB550BE0055F16D /* KireiWebView */;
@@ -656,6 +667,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -671,6 +683,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -749,6 +762,7 @@
 				B0B25D2E1BB550BE0055F16D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B0B25D2F1BB550BE0055F16D /* Build configuration list for PBXNativeTarget "KireiWebViewTests" */ = {
 			isa = XCConfigurationList;
@@ -757,6 +771,7 @@
 				B0B25D311BB550BE0055F16D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B0B25D631BB551020055F16D /* Build configuration list for PBXNativeTarget "Sample" */ = {
 			isa = XCConfigurationList;
@@ -765,6 +780,7 @@
 				B0B25D651BB551020055F16D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B0B25D661BB551020055F16D /* Build configuration list for PBXNativeTarget "SampleTests" */ = {
 			isa = XCConfigurationList;
@@ -773,6 +789,7 @@
 				B0B25D681BB551020055F16D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B0B25D691BB551020055F16D /* Build configuration list for PBXNativeTarget "SampleUITests" */ = {
 			isa = XCConfigurationList;
@@ -781,6 +798,7 @@
 				B0B25D6B1BB551020055F16D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
