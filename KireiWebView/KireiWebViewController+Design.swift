@@ -29,7 +29,7 @@ extension KireiWebViewController {
         header.addSubview(headerBorder)
         footer.addSubview(footerBorder)
         
-        self.view.addSubview(webView)
+        self.view.addSubview(webview)
         self.view.addSubview(header)
         self.view.addSubview(progressView)
         self.view.addSubview(footer)
@@ -53,7 +53,7 @@ extension KireiWebViewController {
             make.left.right.equalTo(self.view)
         }
         
-        webView.snp_makeConstraints { make in
+        webview.snp_makeConstraints { make in
             make.top.equalTo(header.snp_bottom)
             make.bottom.equalTo(footer.snp_top)
             make.right.left.equalTo(self.view)
@@ -70,7 +70,7 @@ extension KireiWebViewController {
         
         if showFooter == false {
             footer.hidden = true
-            webView.snp_updateConstraints { make in
+            webview.snp_updateConstraints { make in
                 make.bottom.equalTo(self.view)
             }
         }

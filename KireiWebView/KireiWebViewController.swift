@@ -20,7 +20,7 @@ public class KireiWebViewController: UIViewController, WKNavigationDelegate {
     
     private let initialURL:String
     
-    var webView: WKWebView!
+    var webview: WKWebView!
     let progressView = UIProgressView()
     let shareButton = UIButton()
     let closeButton = UIButton()
@@ -48,14 +48,14 @@ public class KireiWebViewController: UIViewController, WKNavigationDelegate {
             changeUserAgentAsPC()
         }
 
-        webView = WKWebView()
-        webView.navigationDelegate = self
+        webview = WKWebView()
+        webview.navigationDelegate = self
         
         layout()
         setupButtonActions()
     
         if let url = NSURL(string: initialURL){
-            webView.loadRequest(NSURLRequest(URL: url))
+            webview.loadRequest(NSURLRequest(URL: url))
         }
         
         startObserveForProgressBar()
@@ -67,7 +67,7 @@ public class KireiWebViewController: UIViewController, WKNavigationDelegate {
     }
     
     public func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        titleLabel.text = self.webView.URL?.absoluteString
+        titleLabel.text = self.webview.URL?.absoluteString
     }
     
     public func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
@@ -100,15 +100,15 @@ public class KireiWebViewController: UIViewController, WKNavigationDelegate {
     }
     
     func didTapBackButton() {
-        webView.goBack()
+        webview.goBack()
     }
     
     func didTapForwardButton() {
-        webView.goForward()
+        webview.goForward()
     }
     
     func didTapSafariButton() {
-        openSafari(webView.URL)
+        openSafari(webview.URL)
     }
     
     func didTapCloseButton() {
@@ -117,7 +117,7 @@ public class KireiWebViewController: UIViewController, WKNavigationDelegate {
     
     func didTapShareButton() {
         if shareButtonAction != nil {
-            shareButtonAction!(url:webView.URL, title:webView.title)
+            shareButtonAction!(url:webview.URL, title:webview.title)
         }
         else {
             openActivityView(nil)
@@ -128,20 +128,20 @@ public class KireiWebViewController: UIViewController, WKNavigationDelegate {
     // MARK: observe progress bar
     
     func startObserveForProgressBar() {
-        self.webView.addObserver(self, forKeyPath: "loading", options: .New, context: nil)
-        self.webView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
+        self.webview.addObserver(self, forKeyPath: "loading", options: .New, context: nil)
+        self.webview.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
     }
     
     func removeOvserverForProgressBar() {
-        self.webView.removeObserver(self, forKeyPath: "estimatedProgress")
-        self.webView.removeObserver(self, forKeyPath: "loading")
+        self.webview.removeObserver(self, forKeyPath: "estimatedProgress")
+        self.webview.removeObserver(self, forKeyPath: "loading")
     }
     
     override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath == "estimatedProgress" {
-            self.progressView.setProgress(Float(self.webView.estimatedProgress), animated: true)
+            self.progressView.setProgress(Float(self.webview.estimatedProgress), animated: true)
         } else if keyPath == "loading" {
-            let loading = self.webView.loading
+            let loading = self.webview.loading
             UIApplication.sharedApplication().networkActivityIndicatorVisible = loading
             self.progressView.hidden = loading
             if !loading {

@@ -28,11 +28,11 @@ extension KireiWebViewController {
     func openActivityView(completion:(()->())?) {
         print("openActivityView")
         var items:[AnyObject] = []
-        if webView.title != nil {
-            items.append(webView.title!)
+        if webview.title != nil {
+            items.append(webview.title!)
         }
-        if webView.URL != nil {
-            items.append(webView.URL!)
+        if webview.URL != nil {
+            items.append(webview.URL!)
         }
         
         let activityVC = UIActivityViewController(
