@@ -66,6 +66,9 @@ public class KireiWebViewController: UIViewController, WKNavigationDelegate {
         removeOvserverForProgressBar()
     }
     
+    public func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        titleLabel.text = self.webView.URL?.absoluteString
+    }
     
     public func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
         titleLabel.text = webView.title
