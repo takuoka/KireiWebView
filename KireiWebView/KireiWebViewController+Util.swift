@@ -19,7 +19,6 @@ extension KireiWebViewController {
     
     func imageNamed(name:String) -> UIImage? {
         return UIImage(named: name, inBundle: NSBundle(forClass: KireiWebViewController.self), compatibleWithTraitCollection: nil)
-//        return UIImage(named: name)
     }
     
     func hirakakuFont(size: CGFloat) -> UIFont {

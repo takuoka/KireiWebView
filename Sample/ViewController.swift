@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         testView.setTitle("open", forState: .Normal)
         testView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
         self.view.addSubview(testView)
-        testView.addTarget(self, action: "didTapButton", forControlEvents: UIControlEvents.TouchUpInside)
+        testView.addTarget(self, action: #selector(ViewController.didTapButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         NSTimer.schedule(delay: 0.4) { timer in
