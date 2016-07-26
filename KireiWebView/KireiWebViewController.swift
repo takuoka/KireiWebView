@@ -145,7 +145,6 @@ extension KireiWebViewController {
         } else if keyPath == "loading" {
             let loading = self.webview.loading
             UIApplication.sharedApplication().networkActivityIndicatorVisible = loading
-            self.progressView.hidden = loading
             if !loading {
                 self.progressView.progress = 0
             }
