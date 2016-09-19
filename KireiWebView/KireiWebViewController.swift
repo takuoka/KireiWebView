@@ -28,6 +28,7 @@ public class KireiWebViewController: UIViewController {
     let titleLabel = UILabel()
     let backButton = UIButton()
     let forwardButton = UIButton()
+    let addBookmarkButton = UIButton()
     
     public init(url:String){
         initialURL = url
@@ -126,11 +127,12 @@ extension KireiWebViewController: WKNavigationDelegate {
 extension KireiWebViewController {
     
     func setupButtonActions() {
-        shareButton.addTarget(self, action: #selector(KireiWebViewController.didTapShareButton), forControlEvents: UIControlEvents.TouchUpInside)
-        closeButton.addTarget(self, action: #selector(KireiWebViewController.didTapCloseButton), forControlEvents: UIControlEvents.TouchUpInside)
-        safariButton.addTarget(self, action: #selector(KireiWebViewController.didTapSafariButton), forControlEvents: UIControlEvents.TouchUpInside)
-        backButton.addTarget(self, action: #selector(KireiWebViewController.didTapBackButton), forControlEvents: UIControlEvents.TouchUpInside)
-        forwardButton.addTarget(self, action: #selector(KireiWebViewController.didTapForwardButton), forControlEvents: UIControlEvents.TouchUpInside)
+        shareButton.addTarget(self, action: #selector(self.dynamicType.didTapShareButton), forControlEvents: .TouchUpInside)
+        closeButton.addTarget(self, action: #selector(self.dynamicType.didTapCloseButton), forControlEvents: .TouchUpInside)
+        safariButton.addTarget(self, action: #selector(self.dynamicType.didTapSafariButton), forControlEvents: .TouchUpInside)
+        backButton.addTarget(self, action: #selector(self.dynamicType.didTapBackButton), forControlEvents: .TouchUpInside)
+        forwardButton.addTarget(self, action: #selector(self.dynamicType.didTapForwardButton), forControlEvents: .TouchUpInside)
+        addBookmarkButton.addTarget(self, action: #selector(self.dynamicType.didTapAddBookmarkButton), forControlEvents: .TouchUpInside)
     }
     
     func didTapBackButton() {
@@ -156,6 +158,30 @@ extension KireiWebViewController {
         else {
             openActivityView(nil)
         }
+    }
+    
+    func didTapAddBookmarkButton() {
+        guard let url = webview.URL?.absoluteString, title = webview.title else {
+            showAlert("Can't get URL and Title.")
+            return
+        }
+        let bookmark = Bookmark(url: url, title: title)
+        let result = BookmarkStore.addBookmark(bookmark)
+        switch result {
+//        case .Failed:
+//            showAlert("failed.")
+        case .AleadyExist:
+            showAlert("This page is aleady exist.")
+        case .Success:
+            showAlert("Success.")
+        }
+    }
+    
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        alert.addAction(ok)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 }
 

@@ -107,7 +107,10 @@ extension KireiWebViewController {
         }
     }
     
-    func layoutFooter(footer:UIView) {        
+    func layoutFooter(footer:UIView) {
+        
+        // left
+        
         backButton.setImage(imageNamed("back"), forState: .Normal)
         forwardButton.setImage(imageNamed("next"), forState: .Normal)
         
@@ -128,11 +131,25 @@ extension KireiWebViewController {
             make.centerY.equalTo(footer)
         }
         
+        // right
+        
         shareButton.setImage(imageNamed("share"), forState: .Normal)
+        addBookmarkButton.setImage(imageNamed("add-to-bookmark"), forState: .Normal)
+        let paddingB: CGFloat = 12
+        addBookmarkButton.imageEdgeInsets = UIEdgeInsets(top: paddingB, left: paddingB, bottom: paddingB, right: paddingB)
+
         footer.addSubview(shareButton)
+        footer.addSubview(addBookmarkButton)
+
         shareButton.snp_makeConstraints { make in
             make.size.equalTo(44)
             make.right.equalTo(footer)
+            make.centerY.equalTo(footer)
+        }
+
+        addBookmarkButton.snp_makeConstraints { make in
+            make.size.equalTo(44)
+            make.right.equalTo(shareButton.snp_left).offset(-2)
             make.centerY.equalTo(footer)
         }
         

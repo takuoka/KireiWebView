@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		401090A01D9046A400CDA7DA /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4010909F1D9046A400CDA7DA /* Bookmark.swift */; };
+		401090A21D90594100CDA7DA /* BookmarksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401090A11D90594100CDA7DA /* BookmarksTableViewController.swift */; };
 		404B3D961D47A47C00340BAC /* KireiWebView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B25D181BB550BE0055F16D /* KireiWebView.framework */; };
 		404B3D971D47A47C00340BAC /* KireiWebView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0B25D181BB550BE0055F16D /* KireiWebView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B0B25D1C1BB550BE0055F16D /* KireiWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = B0B25D1B1BB550BE0055F16D /* KireiWebView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -75,6 +77,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4010909F1D9046A400CDA7DA /* Bookmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
+		401090A11D90594100CDA7DA /* BookmarksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksTableViewController.swift; sourceTree = "<group>"; };
 		B0B25D181BB550BE0055F16D /* KireiWebView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KireiWebView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0B25D1B1BB550BE0055F16D /* KireiWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KireiWebView.h; sourceTree = "<group>"; };
 		B0B25D1D1BB550BE0055F16D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -176,8 +180,10 @@
 			children = (
 				B0B25D321BB550F10055F16D /* KireiWebView.xcassets */,
 				B0B25D331BB550F10055F16D /* KireiWebViewController.swift */,
+				401090A11D90594100CDA7DA /* BookmarksTableViewController.swift */,
 				B0B25D341BB550F10055F16D /* KireiWebViewController+Design.swift */,
 				B0B25D351BB550F10055F16D /* KireiWebViewController+Util.swift */,
+				4010909F1D9046A400CDA7DA /* Bookmark.swift */,
 				B0B25D1B1BB550BE0055F16D /* KireiWebView.h */,
 				B0B25D1D1BB550BE0055F16D /* Info.plist */,
 			);
@@ -428,8 +434,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0B25D381BB550F10055F16D /* KireiWebViewController+Design.swift in Sources */,
+				401090A21D90594100CDA7DA /* BookmarksTableViewController.swift in Sources */,
 				B0B25D391BB550F10055F16D /* KireiWebViewController+Util.swift in Sources */,
 				B0B25D371BB550F10055F16D /* KireiWebViewController.swift in Sources */,
+				401090A01D9046A400CDA7DA /* Bookmark.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
