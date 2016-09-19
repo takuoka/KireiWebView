@@ -14,10 +14,10 @@ class BookmarksTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "CELL")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CELL")
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         update()
     }
@@ -27,35 +27,35 @@ class BookmarksTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return bookmarks.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("CELL") ?? UITableViewCell()
-        let bookmark = bookmarks[indexPath.row]
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CELL") ?? UITableViewCell()
+        let bookmark = bookmarks[(indexPath as NSIndexPath).row]
         cell.textLabel?.text = bookmark.title
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let bookmark = bookmarks[indexPath.row]
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let bookmark = bookmarks[(indexPath as NSIndexPath).row]
         let webview = KireiWebViewController(url: bookmark.url)
-        presentViewController(webview, animated: true, completion: nil)
+        present(webview, animated: true, completion: nil)
     }
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let delete = UITableViewRowAction(style: .Default, title: "delete") { [weak self] action, indexPath in
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .default, title: "delete") { [weak self] action, indexPath in
             guard let `self` = self else { return }
-            let bookmark = self.bookmarks[indexPath.row]
+            let bookmark = self.bookmarks[(indexPath as NSIndexPath).row]
             BookmarkStore.removeBookmark(bookmark)
             self.update()
         }
-        delete.backgroundColor = UIColor.redColor()
+        delete.backgroundColor = UIColor.red
         return [delete]
     }
 }

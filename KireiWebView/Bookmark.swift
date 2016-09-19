@@ -21,7 +21,7 @@ struct Bookmark {
 
 class BookmarkStore {
     
-    private class func defaultBookmarks() -> [Bookmark] {
+    fileprivate class func defaultBookmarks() -> [Bookmark] {
         return [
             Bookmark(url: "https://google.com", title: "google"),
             Bookmark(url: "http://raw.senmanga.com/release", title: "sen manga"),
@@ -36,23 +36,23 @@ class BookmarkStore {
         return loaded
     }
 
-    class func save(bookmarks: [Bookmark]) {
+    class func save(_ bookmarks: [Bookmark]) {
         UserDefault.bookmarks = bookmarks
     }
     
-    class func addBookmark(bookmark: Bookmark) -> BookmarkAddResult {
+    class func addBookmark(_ bookmark: Bookmark) -> BookmarkAddResult {
         var list: [Bookmark] = load()
         for b in list {
             if b.url == bookmark.url {
-                return .AleadyExist
+                return .aleadyExist
             }
         }
         list.append(bookmark)
         save(list)
-        return .Success
+        return .success
     }
     
-    class func removeBookmark(bookmark: Bookmark) {
+    class func removeBookmark(_ bookmark: Bookmark) {
         let list: [Bookmark] = load()
         let removedList = list.filter { $0.url != bookmark.url }
         save(removedList)
@@ -60,11 +60,11 @@ class BookmarkStore {
 }
 
 enum BookmarkAddResult {
-    case Success
-    case AleadyExist
+    case success
+    case aleadyExist
 }
 
-private extension NSUserDefaults {
+private extension UserDefaults {
 
     var bookmarks:[Bookmark]{
 
@@ -77,15 +77,15 @@ private extension NSUserDefaults {
                 ] as NSDictionary
             }
             // NSObjectなオブジェクトのみになったから、setObjectできる
-            self.setObject(newDatas,forKey: "BookmarkList")
+            self.set(newDatas,forKey: "BookmarkList")
         }
 
         get{
-            let datas = self.objectForKey("BookmarkList") as? [NSDictionary] ?? []
+            let datas = self.object(forKey: "BookmarkList") as? [NSDictionary] ?? []
             let array = datas.reduce([]){ (ary, d: NSDictionary) -> [Bookmark] in
                 if let
                     url = d["url"] as? String,
-                    title = d["title"] as? String {
+                    let title = d["title"] as? String {
                     return ary + [Bookmark(url: url, title: title)]
                 } else {
                     return ary
@@ -96,4 +96,4 @@ private extension NSUserDefaults {
     }
 }
 
-private let UserDefault = NSUserDefaults.standardUserDefaults()
+private let UserDefault = UserDefaults.standard

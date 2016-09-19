@@ -10,15 +10,15 @@ import UIKit
 import WebKit
 import SnapKit
 
-public class KireiWebViewController: UIViewController {
+open class KireiWebViewController: UIViewController {
     
-    public var shareButtonAction: ((url:NSURL?, title:String?)->())? = nil
-    public var enableOpenInSafari = false
-    public var openInSafariText = "Open in Safari"
-    public var enablePcUserAgent = false
-    public var showFooter = true
+    open var shareButtonAction: ((_ url:URL?, _ title:String?)->())? = nil
+    open var enableOpenInSafari = false
+    open var openInSafariText = "Open in Safari"
+    open var enablePcUserAgent = false
+    open var showFooter = true
 
-    private let initialURL:String
+    fileprivate let initialURL:String
 
     var webview = WKWebView()
     let progressView = UIProgressView()
@@ -39,7 +39,7 @@ public class KireiWebViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
 
         if enablePcUserAgent == true {
@@ -52,14 +52,14 @@ public class KireiWebViewController: UIViewController {
 
         setupButtonActions()
 
-        if let url = NSURL(string: initialURL){
-            webview.loadRequest(NSURLRequest(URL: url))
+        if let url = URL(string: initialURL){
+            webview.load(URLRequest(url: url))
         }
         
         startObserveForProgressBar()
     }
     
-    public override func viewWillDisappear(animated: Bool) {
+    open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         removeOvserverForProgressBar()
     }
@@ -75,50 +75,50 @@ public class KireiWebViewController: UIViewController {
 
 extension KireiWebViewController: WKNavigationDelegate {
 
-    public func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
-        guard let url = navigationAction.request.URL else {
-            decisionHandler(.Allow)
+    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        guard let url = navigationAction.request.url else {
+            decisionHandler(.allow)
             return
         }
         let urlStr = url.absoluteString
         for black in blackList {
-            if urlStr.containsString(black) {
+            if urlStr.contains(black) {
                 print("❌ \(url.absoluteString)")
-                decisionHandler(.Cancel)
+                decisionHandler(.cancel)
                 return
             }
         }
         for white in whiteList {
-            if urlStr.containsString(white) {
+            if urlStr.contains(white) {
                 print("👌 \(url.absoluteString)")
-                decisionHandler(.Allow)
+                decisionHandler(.allow)
                 return
             }
         }
         print("❌ \(url.absoluteString)")
-        decisionHandler(.Cancel)
+        decisionHandler(.cancel)
         return
     }
     
-    public func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        titleLabel.text = self.webview.URL?.absoluteString
+    public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        titleLabel.text = self.webview.url?.absoluteString
     }
     
-    public func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         titleLabel.text = webView.title
         
         if webView.backForwardList.backList.count > 0 {
-            backButton.enabled = true
+            backButton.isEnabled = true
         }
         else {
-            backButton.enabled = false
+            backButton.isEnabled = false
         }
         
         if webView.backForwardList.forwardList.count > 0 {
-            forwardButton.enabled = true
+            forwardButton.isEnabled = true
         }
         else {
-            forwardButton.enabled = false
+            forwardButton.isEnabled = false
         }
     }
 }
@@ -127,12 +127,12 @@ extension KireiWebViewController: WKNavigationDelegate {
 extension KireiWebViewController {
     
     func setupButtonActions() {
-        shareButton.addTarget(self, action: #selector(self.dynamicType.didTapShareButton), forControlEvents: .TouchUpInside)
-        closeButton.addTarget(self, action: #selector(self.dynamicType.didTapCloseButton), forControlEvents: .TouchUpInside)
-        safariButton.addTarget(self, action: #selector(self.dynamicType.didTapSafariButton), forControlEvents: .TouchUpInside)
-        backButton.addTarget(self, action: #selector(self.dynamicType.didTapBackButton), forControlEvents: .TouchUpInside)
-        forwardButton.addTarget(self, action: #selector(self.dynamicType.didTapForwardButton), forControlEvents: .TouchUpInside)
-        addBookmarkButton.addTarget(self, action: #selector(self.dynamicType.didTapAddBookmarkButton), forControlEvents: .TouchUpInside)
+        shareButton.addTarget(self, action: #selector(type(of: self).didTapShareButton), for: .touchUpInside)
+        closeButton.addTarget(self, action: #selector(type(of: self).didTapCloseButton), for: .touchUpInside)
+        safariButton.addTarget(self, action: #selector(type(of: self).didTapSafariButton), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(type(of: self).didTapBackButton), for: .touchUpInside)
+        forwardButton.addTarget(self, action: #selector(type(of: self).didTapForwardButton), for: .touchUpInside)
+        addBookmarkButton.addTarget(self, action: #selector(type(of: self).didTapAddBookmarkButton), for: .touchUpInside)
     }
     
     func didTapBackButton() {
@@ -144,16 +144,16 @@ extension KireiWebViewController {
     }
     
     func didTapSafariButton() {
-        openSafari(webview.URL)
+        openSafari(webview.url)
     }
     
     func didTapCloseButton() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func didTapShareButton() {
         if shareButtonAction != nil {
-            shareButtonAction!(url:webview.URL, title:webview.title)
+            shareButtonAction!(webview.url, webview.title)
         }
         else {
             openActivityView(nil)
@@ -161,7 +161,7 @@ extension KireiWebViewController {
     }
     
     func didTapAddBookmarkButton() {
-        guard let url = webview.URL?.absoluteString, title = webview.title else {
+        guard let url = webview.url?.absoluteString, let title = webview.title else {
             showAlert("Can't get URL and Title.")
             return
         }
@@ -170,18 +170,18 @@ extension KireiWebViewController {
         switch result {
 //        case .Failed:
 //            showAlert("failed.")
-        case .AleadyExist:
+        case .aleadyExist:
             showAlert("This page is aleady exist.")
-        case .Success:
+        case .success:
             showAlert("Success.")
         }
     }
     
-    func showAlert(message: String) {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
+    func showAlert(_ message: String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(ok)
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -189,8 +189,8 @@ extension KireiWebViewController {
 extension KireiWebViewController {
     
     func startObserveForProgressBar() {
-        self.webview.addObserver(self, forKeyPath: "loading", options: .New, context: nil)
-        self.webview.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
+        self.webview.addObserver(self, forKeyPath: "loading", options: .new, context: nil)
+        self.webview.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
     }
     
     func removeOvserverForProgressBar() {
@@ -198,12 +198,12 @@ extension KireiWebViewController {
         self.webview.removeObserver(self, forKeyPath: "loading")
     }
     
-    override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "estimatedProgress" {
             self.progressView.setProgress(Float(self.webview.estimatedProgress), animated: true)
         } else if keyPath == "loading" {
-            let loading = self.webview.loading
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = loading
+            let loading = self.webview.isLoading
+            UIApplication.shared.isNetworkActivityIndicatorVisible = loading
 //            self.progressView.hidden = loading
             if !loading {
                 self.progressView.progress = 0

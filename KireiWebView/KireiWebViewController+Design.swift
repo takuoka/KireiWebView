@@ -16,7 +16,7 @@ extension KireiWebViewController {
         let header = UIView()
         let footer = UIView()
 
-        progressView.progressViewStyle = .Bar
+        progressView.progressViewStyle = .bar
         progressView.alpha = 0.5
 
         header.backgroundColor = UIColor(white: 248/255, alpha: 1)
@@ -69,18 +69,18 @@ extension KireiWebViewController {
         layoutFooter(footer)
         
         if showFooter == false {
-            footer.hidden = true
+            footer.isHidden = true
             webview.snp_updateConstraints { make in
                 make.bottom.equalTo(self.view)
             }
         }
     }
     
-    func layoutHeader(header:UIView) {
+    func layoutHeader(_ header:UIView) {
         
         let rect = UIView()
         
-        closeButton.setImage(imageNamed("close"), forState: UIControlState.Normal)
+        closeButton.setImage(imageNamed("close"), for: UIControlState())
         
         titleLabel.font = hirakakuFont(14)
         titleLabel.textColor = UIColor(white: 134/255, alpha: 1)
@@ -107,15 +107,15 @@ extension KireiWebViewController {
         }
     }
     
-    func layoutFooter(footer:UIView) {
+    func layoutFooter(_ footer:UIView) {
         
         // left
         
-        backButton.setImage(imageNamed("back"), forState: .Normal)
-        forwardButton.setImage(imageNamed("next"), forState: .Normal)
+        backButton.setImage(imageNamed("back"), for: UIControlState())
+        forwardButton.setImage(imageNamed("next"), for: UIControlState())
         
-        backButton.enabled = false
-        forwardButton.enabled = false
+        backButton.isEnabled = false
+        forwardButton.isEnabled = false
         
         footer.addSubview(backButton)
         footer.addSubview(forwardButton)
@@ -133,8 +133,8 @@ extension KireiWebViewController {
         
         // right
         
-        shareButton.setImage(imageNamed("share"), forState: .Normal)
-        addBookmarkButton.setImage(imageNamed("add-to-bookmark"), forState: .Normal)
+        shareButton.setImage(imageNamed("share"), for: UIControlState())
+        addBookmarkButton.setImage(imageNamed("add-to-bookmark"), for: UIControlState())
         let paddingB: CGFloat = 12
         addBookmarkButton.imageEdgeInsets = UIEdgeInsets(top: paddingB, left: paddingB, bottom: paddingB, right: paddingB)
 
@@ -153,9 +153,9 @@ extension KireiWebViewController {
             make.centerY.equalTo(footer)
         }
         
-        safariButton.setTitle(openInSafariText, forState: .Normal)
-        safariButton.setTitleColor(UIColor(white: 134/255, alpha: 1), forState: .Normal)
-        safariButton.setTitleColor(UIColor(white: 134/255, alpha: 0.75), forState: UIControlState.Highlighted)
+        safariButton.setTitle(openInSafariText, for: UIControlState())
+        safariButton.setTitleColor(UIColor(white: 134/255, alpha: 1), for: UIControlState())
+        safariButton.setTitleColor(UIColor(white: 134/255, alpha: 0.75), for: UIControlState.highlighted)
         safariButton.titleLabel?.font = hirakakuFont(14)
         footer.addSubview(safariButton)
         safariButton.snp_makeConstraints { make in
@@ -164,7 +164,7 @@ extension KireiWebViewController {
         }
         
         if enableOpenInSafari == false {
-            safariButton.hidden = true
+            safariButton.isHidden = true
         }
     }
 }

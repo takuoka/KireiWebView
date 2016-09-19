@@ -14,43 +14,43 @@ extension KireiWebViewController {
     func changeUserAgentAsPC(){
         let userAgentStr = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.63 Safari/537.36"
         let dic:NSDictionary = ["UserAgent":userAgentStr]
-        NSUserDefaults.standardUserDefaults().registerDefaults(dic as! [String : AnyObject])
+        UserDefaults.standard.register(defaults: dic as! [String : AnyObject])
     }
     
-    func imageNamed(name:String) -> UIImage? {
-        return UIImage(named: name, inBundle: NSBundle(forClass: KireiWebViewController.self), compatibleWithTraitCollection: nil)
+    func imageNamed(_ name:String) -> UIImage? {
+        return UIImage(named: name, in: Bundle(for: KireiWebViewController.self), compatibleWith: nil)
     }
     
-    func hirakakuFont(size: CGFloat) -> UIFont {
+    func hirakakuFont(_ size: CGFloat) -> UIFont {
         return UIFont(name: "HiraKakuProN-W3", size: size)!
     }
     
-    func openActivityView(completion:(()->())?) {
+    func openActivityView(_ completion:(()->())?) {
         print("openActivityView")
         var items:[AnyObject] = []
         if webview.title != nil {
-            items.append(webview.title!)
+            items.append(webview.title! as AnyObject)
         }
-        if webview.URL != nil {
-            items.append(webview.URL!)
+        if webview.url != nil {
+            items.append(webview.url! as AnyObject)
         }
         
         let activityVC = UIActivityViewController(
             activityItems: items,
             applicationActivities: nil
         )
-        activityVC.completionWithItemsHandler = { (activityType:String?, isCompleted:Bool, returnedItems:[AnyObject]?, error:NSError?) in
-            if (isCompleted) {
+        activityVC.completionWithItemsHandler = { hander in
+            if (hander.1) {
                 completion?()
             }
         }
-        self.presentViewController(activityVC, animated: true, completion: nil)
+        self.present(activityVC, animated: true, completion: nil)
     }
 
-    func openSafari(url: NSURL?) {
+    func openSafari(_ url: URL?) {
         if url != nil {
-            if UIApplication.sharedApplication().canOpenURL(url!){
-                UIApplication.sharedApplication().openURL(url!)
+            if UIApplication.shared.canOpenURL(url!){
+                UIApplication.shared.openURL(url!)
             }
         }
     }

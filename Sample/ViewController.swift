@@ -17,13 +17,13 @@ class ViewController: UIViewController {
         let testView = UIButton()
         testView.frame = CGRect(x: 0, y: 0, width: 88, height: 88)
         testView.center = self.view.center
-        testView.setTitle("open", forState: .Normal)
-        testView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+        testView.setTitle("open", for: UIControlState())
+        testView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         self.view.addSubview(testView)
-        testView.addTarget(self, action: #selector(ViewController.didTapButton), forControlEvents: UIControlEvents.TouchUpInside)
+        testView.addTarget(self, action: #selector(ViewController.didTapButton), for: UIControlEvents.touchUpInside)
         
         
-        NSTimer.schedule(delay: 0.4) { timer in
+        Timer.schedule(delay: 0.4) { timer in
             self.didTapButton()
         }
     }
@@ -39,24 +39,23 @@ class ViewController: UIViewController {
         //            println(title)
         //            println(url)
         //        }
-        self.presentViewController(kireiWebView, animated: true, completion: nil)
+        self.present(kireiWebView, animated: true, completion: nil)
     }
 }
 
 
 
-
-extension NSTimer {
-    class func schedule(delay delay: NSTimeInterval, handler: NSTimer! -> Void) -> NSTimer {
+extension Timer {
+    class func schedule(delay: TimeInterval, handler: @escaping (CFRunLoopTimer?) -> Void) -> Timer? {
         let fireDate = delay + CFAbsoluteTimeGetCurrent()
         let timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, fireDate, 0, 0, 0, handler)
-        CFRunLoopAddTimer(CFRunLoopGetCurrent(), timer, kCFRunLoopCommonModes)
+        CFRunLoopAddTimer(CFRunLoopGetCurrent(), timer, CFRunLoopMode.commonModes)
         return timer
     }
-    class func schedule(repeatInterval interval: NSTimeInterval, handler: NSTimer! -> Void) -> NSTimer {
+    class func schedule(repeatInterval interval: TimeInterval, handler: @escaping (CFRunLoopTimer?) -> Void) -> Timer? {
         let fireDate = interval + CFAbsoluteTimeGetCurrent()
         let timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, fireDate, interval, 0, 0, handler)
-        CFRunLoopAddTimer(CFRunLoopGetCurrent(), timer, kCFRunLoopCommonModes)
+        CFRunLoopAddTimer(CFRunLoopGetCurrent(), timer, CFRunLoopMode.commonModes)
         return timer
     }
 }
