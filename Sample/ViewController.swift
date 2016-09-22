@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         testView.addTarget(self, action: #selector(ViewController.didTapButton), for: UIControlEvents.touchUpInside)
         
         
-        Timer.schedule(delay: 0.4) { timer in
+        _ = Timer.schedule(delay: 0.4) { _ in
             self.didTapButton()
         }
     }
@@ -39,6 +39,7 @@ class ViewController: UIViewController {
         //            println(title)
         //            println(url)
         //        }
+        kireiWebView.enablePcUserAgent = true
         self.present(kireiWebView, animated: true, completion: nil)
     }
 }

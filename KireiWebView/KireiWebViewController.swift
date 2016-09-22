@@ -42,6 +42,7 @@ open class KireiWebViewController: UIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
+        startObserveForProgressBar()
 
         if enablePcUserAgent == true {
             changeUserAgentAsPC()
@@ -57,40 +58,20 @@ open class KireiWebViewController: UIViewController {
             webview.load(URLRequest(url: url))
         }
         
-        startObserveForProgressBar()
-        
         /// manga hack
         let mangaAdBlocker = RequestBolocker()
         mangaAdBlocker.enableAreas = ["raw.senmanga.com"]
         mangaAdBlocker.whiteList = ["raw.senmanga.com"]
         mangaAdBlocker.blackList = ["addthis.com"]
-        requestBlockerList = [mangaAdBlocker]
+        requestBlockerList.append(mangaAdBlocker)
     }
     
-    open override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    deinit {
         removeOvserverForProgressBar()
     }
 }
 
 extension KireiWebViewController: WKNavigationDelegate {
-
-    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        guard let url = navigationAction.request.url else {
-            decisionHandler(.allow)
-            return
-        }
-        var shouldBlock = false
-        let urlStr = url.absoluteString
-        let here = webView.url?.absoluteURL.absoluteString
-        for blocker in requestBlockerList {
-            if blocker.shouldBlockRequest(url: urlStr, fromHere: here) {
-                shouldBlock = true
-            }
-        }
-        decisionHandler(shouldBlock ? .cancel : .allow)
-        return
-    }
     
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         titleLabel.text = self.webview.url?.absoluteString
@@ -112,6 +93,24 @@ extension KireiWebViewController: WKNavigationDelegate {
         else {
             forwardButton.isEnabled = false
         }
+    }
+    
+    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        // Ad Blocking
+        guard let url = navigationAction.request.url else {
+            decisionHandler(.allow)
+            return
+        }
+        var shouldBlock = false
+        let urlStr = url.absoluteString
+        let here = webView.url?.absoluteURL.absoluteString
+        for blocker in requestBlockerList {
+            if blocker.shouldBlockRequest(url: urlStr, fromHere: here) {
+                shouldBlock = true
+            }
+        }
+        decisionHandler(shouldBlock ? .cancel : .allow)
+        return
     }
 }
 
