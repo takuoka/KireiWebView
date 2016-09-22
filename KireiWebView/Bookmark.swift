@@ -31,10 +31,6 @@ struct Bookmark {
         }
         return Bookmark(url: url, title: title)
     }
-    
-    static func toArray(bookmarks: [Bookmark]) -> [[String: String]] {
-        return bookmarks.map { $0.toDictionary() }
-    }
 }
 
 class BookmarkStore {
