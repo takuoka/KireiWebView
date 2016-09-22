@@ -17,6 +17,7 @@ open class KireiWebViewController: UIViewController {
     open var openInSafariText = "Open in Safari"
     open var enablePcUserAgent = false
     open var showFooter = true
+    public var requestBlockerList: [RequestBolocker] = []
 
     fileprivate let initialURL:String
 
@@ -57,20 +58,19 @@ open class KireiWebViewController: UIViewController {
         }
         
         startObserveForProgressBar()
+        
+        /// manga hack
+        let mangaAdBlocker = RequestBolocker()
+        mangaAdBlocker.enableAreas = ["raw.senmanga.com"]
+        mangaAdBlocker.whiteList = ["raw.senmanga.com"]
+        mangaAdBlocker.blackList = ["addthis.com"]
+        requestBlockerList = [mangaAdBlocker]
     }
     
     open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         removeOvserverForProgressBar()
     }
-    
-    let blackList: [String] = [
-        "addthis.com"
-    ]
-    
-    let whiteList: [String] = [
-        "raw.senmanga.com"
-    ]
 }
 
 extension KireiWebViewController: WKNavigationDelegate {
@@ -80,20 +80,15 @@ extension KireiWebViewController: WKNavigationDelegate {
             decisionHandler(.allow)
             return
         }
+        var shouldBlock = false
         let urlStr = url.absoluteString
-        for black in blackList {
-            if urlStr.contains(black) {
-                decisionHandler(.cancel)
-                return
+        let here = webView.url?.absoluteURL.absoluteString
+        for blocker in requestBlockerList {
+            if blocker.shouldBlockRequest(url: urlStr, fromHere: here) {
+                shouldBlock = true
             }
         }
-        for white in whiteList {
-            if urlStr.contains(white) {
-                decisionHandler(.allow)
-                return
-            }
-        }
-        decisionHandler(.cancel)
+        decisionHandler(shouldBlock ? .cancel : .allow)
         return
     }
     
