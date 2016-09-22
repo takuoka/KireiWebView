@@ -357,6 +357,7 @@
 					};
 					B0B25D3D1BB551020055F16D = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 6N9U78BNZR;
 						LastSwiftMigration = 0800;
 					};
 					B0B25D501BB551020055F16D = {
@@ -683,6 +684,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 6N9U78BNZR;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -700,6 +702,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 6N9U78BNZR;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
