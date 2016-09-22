@@ -140,42 +140,24 @@ extension KireiWebViewController {
     }
     
     func didTapCloseButton() {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     func didTapShareButton() {
-        if shareButtonAction != nil {
-            shareButtonAction!(webview.url, webview.title)
-        }
-        else {
+        if let action = shareButtonAction {
+            action(webview.url, webview.title)
+        } else {
             openActivityView(nil)
         }
     }
     
     func didTapAddBookmarkButton() {
-        guard let url = webview.url?.absoluteString, let title = webview.title else {
-            showAlert("Can't get URL and Title.")
-            return
-        }
-        let bookmark = Bookmark(url: url, title: title)
-        let result = BookmarkStore.addBookmark(bookmark)
-        switch result {
-        case .aleadyExist:
-            showAlert("This page is aleady exist.")
-        case .success:
-            showAlert("Success.")
-        }
-    }
-    
-    func showAlert(_ message: String) {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(ok)
-        self.present(alert, animated: true, completion: nil)
+        addHereToBookmark()
     }
 }
 
-// MARK: observe progress bar
+// MARK: - Observe Progress Bar
+
 extension KireiWebViewController {
     
     func startObserveForProgressBar() {
@@ -198,5 +180,32 @@ extension KireiWebViewController {
                 self.progressView.progress = 0
             }
         }
+    }
+}
+
+// MARK: - Bookmark Action
+
+extension KireiWebViewController {
+    
+    func addHereToBookmark() {
+        guard let url = webview.url?.absoluteString, let title = webview.title else {
+            showAlert("Can't get URL and Title.")
+            return
+        }
+        let bookmark = Bookmark(url: url, title: title)
+        let result = BookmarkStore.addBookmark(bookmark)
+        switch result {
+        case .aleadyExist:
+            showAlert("This page is aleady exist.")
+        case .success:
+            showAlert("Success.")
+        }
+    }
+    
+    func showAlert(_ message: String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
     }
 }

@@ -23,7 +23,7 @@ class BookmarksTableViewController: UITableViewController {
     }
     
     func update() {
-        bookmarks = BookmarkStore.load() ?? []
+        bookmarks = BookmarkStore.load()
         tableView.reloadData()
     }
     

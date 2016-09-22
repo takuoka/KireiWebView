@@ -28,20 +28,20 @@ public class RequestBolocker {
     
     func shouldBlockRequest(url: String, fromHere here: String?) -> Bool {
 
-        var enableBloking = false
-
-        if let here = here {
-            for enabledArea in enableAreas {
-                if here.contains(enabledArea) {
-                    enableBloking = true
-                    break
-                }
-            }
-        } else {
+        guard let here = here else {
             return false
         }
-
-        guard enableBloking else { return false }
+        
+        var enableBloking = false
+        for enabledArea in enableAreas {
+            if here.contains(enabledArea) {
+                enableBloking = true
+                break
+            }
+        }
+        guard enableBloking else {
+            return false
+        }
         
         for black in blackList {
             if url.contains(black) {
