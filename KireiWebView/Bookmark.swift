@@ -25,6 +25,7 @@ class BookmarkStore {
         return [
             Bookmark(url: "https://google.com", title: "google"),
             Bookmark(url: "http://raw.senmanga.com/release", title: "sen manga"),
+            Bookmark(url: "http://urasunday.com/mobupsycho100/", title: "mobupsycho100")
         ]
     }
     
