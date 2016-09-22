@@ -13,15 +13,33 @@ struct Bookmark {
     let url: String
     let title: String
     
-    init(url:String, title:String) {
-        self.url = url
-        self.title = title
+    // MARK: convert to Data for Store
+    
+    func toDictionary() -> [String : String] {
+        return [
+            "url": url,
+            "title": title
+        ]
+    }
+    
+    static func fromDictionary(_ d: [String : String]) -> Bookmark? {
+        guard
+            let url = d["url"],
+            let title = d["title"]
+        else {
+            return nil
+        }
+        return Bookmark(url: url, title: title)
+    }
+    
+    static func toArray(bookmarks: [Bookmark]) -> [[String: String]] {
+        return bookmarks.map { $0.toDictionary() }
     }
 }
 
 class BookmarkStore {
     
-    fileprivate class func defaultBookmarks() -> [Bookmark] {
+    private class func defaultBookmarks() -> [Bookmark] {
         return [
             Bookmark(url: "https://google.com", title: "google"),
             Bookmark(url: "http://raw.senmanga.com/release", title: "sen manga"),
@@ -58,6 +76,10 @@ class BookmarkStore {
         let removedList = list.filter { $0.url != bookmark.url }
         save(removedList)
     }
+    
+    class func clearAll() {
+        UserDefault.bookmarks = []
+    }
 }
 
 enum BookmarkAddResult {
@@ -67,32 +89,19 @@ enum BookmarkAddResult {
 
 private extension UserDefaults {
 
-    var bookmarks:[Bookmark]{
-
-        set(datas){
-            // Swiftのオブジェクトを、NSObjectなオブジェクトに変換する
-            let newDatas: [NSDictionary] = datas.map {
-                [
-                    "url": $0.url,
-                    "title": $0.title
-                ] as NSDictionary
-            }
-            // NSObjectなオブジェクトのみになったから、setObjectできる
-            self.set(newDatas,forKey: "BookmarkList")
+    var bookmarkStoreKey: String { return "BookmarkList" }
+    
+    var bookmarks:[Bookmark] {
+        set {
+            let data = newValue.map { $0.toDictionary() }
+            self.set(data, forKey: bookmarkStoreKey)
         }
-
         get{
-            let datas = self.object(forKey: "BookmarkList") as? [NSDictionary] ?? []
-            let array = datas.reduce([]){ (ary, d: NSDictionary) -> [Bookmark] in
-                if let
-                    url = d["url"] as? String,
-                    let title = d["title"] as? String {
-                    return ary + [Bookmark(url: url, title: title)]
-                } else {
-                    return ary
-                }
+            let data = self.object(forKey: bookmarkStoreKey) as? [[String : String]] ?? []
+            return data.reduce([]) { (ary, d: [String : String]) -> [Bookmark] in
+                guard let bookmark = Bookmark.fromDictionary(d) else { return ary }
+                return ary + [bookmark]
             }
-            return array
         }
     }
 }

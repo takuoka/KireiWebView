@@ -83,19 +83,16 @@ extension KireiWebViewController: WKNavigationDelegate {
         let urlStr = url.absoluteString
         for black in blackList {
             if urlStr.contains(black) {
-                print("❌ \(url.absoluteString)")
                 decisionHandler(.cancel)
                 return
             }
         }
         for white in whiteList {
             if urlStr.contains(white) {
-                print("👌 \(url.absoluteString)")
                 decisionHandler(.allow)
                 return
             }
         }
-        print("❌ \(url.absoluteString)")
         decisionHandler(.cancel)
         return
     }
@@ -168,8 +165,6 @@ extension KireiWebViewController {
         let bookmark = Bookmark(url: url, title: title)
         let result = BookmarkStore.addBookmark(bookmark)
         switch result {
-//        case .Failed:
-//            showAlert("failed.")
         case .aleadyExist:
             showAlert("This page is aleady exist.")
         case .success:
@@ -204,7 +199,6 @@ extension KireiWebViewController {
         } else if keyPath == "loading" {
             let loading = self.webview.isLoading
             UIApplication.shared.isNetworkActivityIndicatorVisible = loading
-//            self.progressView.hidden = loading
             if !loading {
                 self.progressView.progress = 0
             }
