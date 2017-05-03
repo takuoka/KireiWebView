@@ -78,6 +78,7 @@ extension KireiWebViewController: WKNavigationDelegate {
     }
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        
         titleLabel.text = webView.title
         
         if webView.backForwardList.backList.count > 0 {
@@ -96,11 +97,19 @@ extension KireiWebViewController: WKNavigationDelegate {
     }
     
     public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        // Ad Blocking
         guard let url = navigationAction.request.url else {
             decisionHandler(.allow)
             return
         }
+        // Show Manga Viewer
+        if SenMangaViewerViewController.isSenMangaContentPage(url: url.absoluteString) {
+            let vc = SenMangaViewerViewController(firstUrl: url.absoluteString)
+            self.present(vc, animated: true, completion: nil)
+            // stop navigation
+            decisionHandler(.cancel)
+            return
+        }
+        // Ad Blocking
         var shouldBlock = false
         let urlStr = url.absoluteString
         let here = webView.url?.absoluteURL.absoluteString

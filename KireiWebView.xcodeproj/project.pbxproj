@@ -29,6 +29,9 @@
 		B0B25D721BB5518A0055F16D /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B25D6C1BB551680055F16D /* SnapKit.framework */; };
 		B0B25D741BB551BF0055F16D /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B25D731BB551BF0055F16D /* SnapKit.framework */; };
 		B0B25D751BB551BF0055F16D /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0B25D731BB551BF0055F16D /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B0D285DD1EBA139000D3E1A0 /* WebViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D285DC1EBA139000D3E1A0 /* WebViewFactory.swift */; };
+		B0D285DF1EBA187D00D3E1A0 /* SenMangaViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D285DE1EBA187D00D3E1A0 /* SenMangaViewerViewController.swift */; };
+		B0D285E11EBA321500D3E1A0 /* Timer+closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D285E01EBA321500D3E1A0 /* Timer+closure.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +109,9 @@
 		B0B25D621BB551020055F16D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0B25D6C1BB551680055F16D /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		B0B25D731BB551BF0055F16D /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		B0D285DC1EBA139000D3E1A0 /* WebViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewFactory.swift; sourceTree = "<group>"; };
+		B0D285DE1EBA187D00D3E1A0 /* SenMangaViewerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SenMangaViewerViewController.swift; sourceTree = "<group>"; };
+		B0D285E01EBA321500D3E1A0 /* Timer+closure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Timer+closure.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +188,7 @@
 			children = (
 				B0B25D321BB550F10055F16D /* KireiWebView.xcassets */,
 				B0B25D331BB550F10055F16D /* KireiWebViewController.swift */,
+				B0D285DE1EBA187D00D3E1A0 /* SenMangaViewerViewController.swift */,
 				B09EC0371D944C8F00EA8BDA /* RequestBolocker.swift */,
 				401090A11D90594100CDA7DA /* BookmarksTableViewController.swift */,
 				B0B25D341BB550F10055F16D /* KireiWebViewController+Design.swift */,
@@ -189,6 +196,8 @@
 				4010909F1D9046A400CDA7DA /* Bookmark.swift */,
 				B0B25D1B1BB550BE0055F16D /* KireiWebView.h */,
 				B0B25D1D1BB550BE0055F16D /* Info.plist */,
+				B0D285DC1EBA139000D3E1A0 /* WebViewFactory.swift */,
+				B0D285E01EBA321500D3E1A0 /* Timer+closure.swift */,
 			);
 			path = KireiWebView;
 			sourceTree = "<group>";
@@ -442,9 +451,12 @@
 				B0B25D381BB550F10055F16D /* KireiWebViewController+Design.swift in Sources */,
 				401090A21D90594100CDA7DA /* BookmarksTableViewController.swift in Sources */,
 				B0B25D391BB550F10055F16D /* KireiWebViewController+Util.swift in Sources */,
+				B0D285E11EBA321500D3E1A0 /* Timer+closure.swift in Sources */,
 				B0B25D371BB550F10055F16D /* KireiWebViewController.swift in Sources */,
 				B09EC0381D944C8F00EA8BDA /* RequestBolocker.swift in Sources */,
+				B0D285DF1EBA187D00D3E1A0 /* SenMangaViewerViewController.swift in Sources */,
 				401090A01D9046A400CDA7DA /* Bookmark.swift in Sources */,
+				B0D285DD1EBA139000D3E1A0 /* WebViewFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

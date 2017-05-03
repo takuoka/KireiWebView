@@ -44,8 +44,6 @@ class ViewController: UIViewController {
     }
 }
 
-
-
 extension Timer {
     class func schedule(delay: TimeInterval, handler: @escaping (CFRunLoopTimer?) -> Void) -> Timer? {
         let fireDate = delay + CFAbsoluteTimeGetCurrent()
@@ -60,7 +58,5 @@ extension Timer {
         return timer
     }
 }
-
-
 
 
