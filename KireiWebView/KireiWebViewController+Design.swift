@@ -34,33 +34,33 @@ extension KireiWebViewController {
         self.view.addSubview(progressView)
         self.view.addSubview(footer)
         
-        header.snp_makeConstraints { make in
+        header.snp.makeConstraints { make in
             make.top.left.right.equalTo(self.view)
             make.height.equalTo(44 + 20)//68
         }
-        footer.snp_makeConstraints { make in
+        footer.snp.makeConstraints { make in
             make.bottom.left.right.equalTo(self.view)
             make.height.equalTo(44)//50
         }
-        headerBorder.snp_makeConstraints { make in
-            make.bottom.equalTo(header.snp_bottom)
+        headerBorder.snp.makeConstraints { make in
+            make.bottom.equalTo(header.snp.bottom)
             make.height.equalTo(0.5)
             make.left.right.equalTo(self.view)
         }
-        footerBorder.snp_makeConstraints { make in
-            make.top.equalTo(footer.snp_top)
+        footerBorder.snp.makeConstraints { make in
+            make.top.equalTo(footer.snp.top)
             make.height.equalTo(0.5)
             make.left.right.equalTo(self.view)
         }
         
-        webview.snp_makeConstraints { make in
-            make.top.equalTo(header.snp_bottom)
-            make.bottom.equalTo(footer.snp_top)
+        webview.snp.makeConstraints { make in
+            make.top.equalTo(header.snp.bottom)
+            make.bottom.equalTo(footer.snp.top)
             make.right.left.equalTo(self.view)
         }
         
-        progressView.snp_makeConstraints { make in
-            make.top.equalTo(header.snp_bottom)
+        progressView.snp.makeConstraints { make in
+            make.top.equalTo(header.snp.bottom)
             make.right.left.equalTo(self.view)
             make.height.equalTo(4)
         }
@@ -70,7 +70,7 @@ extension KireiWebViewController {
         
         if showFooter == false {
             footer.isHidden = true
-            webview.snp_updateConstraints { make in
+            webview.snp.updateConstraints { make in
                 make.bottom.equalTo(self.view)
             }
         }
@@ -90,17 +90,17 @@ extension KireiWebViewController {
         header.addSubview(rect)
         
         
-        rect.snp_makeConstraints { make in
+        rect.snp.makeConstraints { make in
             make.top.equalTo(20)//status bar
             make.right.left.bottom.equalTo(header)
         }
-        closeButton.snp_makeConstraints { make in
+        closeButton.snp.makeConstraints { make in
             make.size.equalTo(44)
             make.left.equalTo(header)
             make.centerY.equalTo(rect)
         }
-        titleLabel.snp_makeConstraints { make in
-            make.left.equalTo(closeButton.snp_right).offset(2)
+        titleLabel.snp.makeConstraints { make in
+            make.left.equalTo(closeButton.snp.right).offset(2)
             make.right.equalTo(self.view).offset(-16)//?
             make.centerY.equalTo(closeButton)
             make.height.equalTo(rect)
@@ -120,14 +120,14 @@ extension KireiWebViewController {
         footer.addSubview(backButton)
         footer.addSubview(forwardButton)
         
-        backButton.snp_makeConstraints { make in
+        backButton.snp.makeConstraints { make in
             make.size.equalTo(44)
             make.left.equalTo(footer)
             make.centerY.equalTo(footer)
         }
-        forwardButton.snp_makeConstraints { make in
+        forwardButton.snp.makeConstraints { make in
             make.size.equalTo(44)
-            make.left.equalTo(backButton.snp_right).offset(2)
+            make.left.equalTo(backButton.snp.right).offset(2)
             make.centerY.equalTo(footer)
         }
         
@@ -141,15 +141,15 @@ extension KireiWebViewController {
         footer.addSubview(shareButton)
         footer.addSubview(addBookmarkButton)
 
-        shareButton.snp_makeConstraints { make in
+        shareButton.snp.makeConstraints { make in
             make.size.equalTo(44)
             make.right.equalTo(footer)
             make.centerY.equalTo(footer)
         }
 
-        addBookmarkButton.snp_makeConstraints { make in
+        addBookmarkButton.snp.makeConstraints { make in
             make.size.equalTo(44)
-            make.right.equalTo(shareButton.snp_left).offset(-2)
+            make.right.equalTo(shareButton.snp.left).offset(-2)
             make.centerY.equalTo(footer)
         }
         
@@ -158,7 +158,7 @@ extension KireiWebViewController {
         safariButton.setTitleColor(UIColor(white: 134/255, alpha: 0.75), for: UIControlState.highlighted)
         safariButton.titleLabel?.font = hirakakuFont(14)
         footer.addSubview(safariButton)
-        safariButton.snp_makeConstraints { make in
+        safariButton.snp.makeConstraints { make in
             make.center.equalTo(footer)
             make.height.equalTo(footer)
         }
