@@ -49,6 +49,7 @@ class SenMangaViewerViewController: UIViewController {
     // MARK: - setup
     
     func setup() {
+        scrollView.isDirectionalLockEnabled = true
         scrollView.isPagingEnabled = true
         scrollView.indicatorStyle = .white
         header.didTapCloseButton = { [weak self] in
@@ -111,8 +112,8 @@ class SenMangaViewerViewController: UIViewController {
     
     func reLayoutContents() {
         scrollView.contentSize = CGSize(
-            width: self.view.frame.width * CGFloat(webViews.count),
-            height: self.view.frame.height
+            width: view.frame.width * CGFloat(webViews.count),
+            height: scrollView.frame.height
         )
         
         var previousView: UIView!
@@ -120,7 +121,7 @@ class SenMangaViewerViewController: UIViewController {
         webViews.reversed().enumerated().forEach { i, v in
             v.snp.remakeConstraints { make in
                 make.top.equalTo(scrollView)
-                make.size.equalTo(view)
+                make.size.equalTo(scrollView)
                 if i == 0 {
                     make.left.equalTo(0)
                 } else {
@@ -155,6 +156,7 @@ fileprivate class MangaViewerView: UIView, WKNavigationDelegate {
         self.addSubview(webview)
         webview.snp.makeConstraints { make in make.edges.equalTo(self) }
         webview.navigationDelegate  = self
+        webview.scrollView.isScrollEnabled = false
         
         if let url = URL(string: url) {
             webview.load(URLRequest(url: url))
